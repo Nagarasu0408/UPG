@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "378502290754",
+    "project_id": "upg-init",
+    "storage_bucket": "upg-init.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378502290754:android:22cc24bb996f05024bfcdb",
+        "android_client_info": {
+          "package_name": "com.example.upg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378502290754-civ118nc5674gpph7oa2g5eb7hriv7s4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.upg",
+            "certificate_hash": "4c98d8589733ca1b3fd12af475ea6eaee6668992"
+          }
+        },
+        {
+          "client_id": "378502290754-v57evo9cu6uf4g90uvgt152t867lqtsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2GpWRvRdozabIgPgeZSO0eDX1YNU5dO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378502290754-v57evo9cu6uf4g90uvgt152t867lqtsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

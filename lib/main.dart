@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'AnimationSecreen.dart';
 import 'HomeScreen.dart';
 
 
@@ -13,7 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(AnimationScreen());
 }
 
 class MyApp extends StatelessWidget {
@@ -238,6 +239,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 }
+
 
 
 

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:upg/main.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -24,13 +25,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: Row(children: [
+          Text('UPG')
+        ],),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage()));
             },
           ),
         ],
@@ -39,14 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('images').snapshots(),
+              stream: FirebaseFirestore.instance.collection('images').snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
                 }
 
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return Text('No images found.');
+                }
                 var images = snapshot.data!.docs;
 
                 List<Widget> imageWidgets = [];
@@ -96,12 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+
   void _uploadImage(File image) async {
     try {
       var user = widget.user;
-      var timestamp = DateTime
-          .now()
-          .millisecondsSinceEpoch;
+      var timestamp = DateTime.now().millisecondsSinceEpoch;
 
       var ref = _storage.ref().child('images/$timestamp.jpg');
       var uploadTask = ref.putFile(image);
@@ -152,6 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
   }
+
 
 
   void _handleLike(String documentId) async {

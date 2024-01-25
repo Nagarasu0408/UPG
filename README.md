@@ -67,4 +67,33 @@ The Image Sharing App is a mobile application developed using Flutter, designed 
 
 The Image Sharing App demonstrates the synergy between Flutter and Firebase, providing users with a seamless experience while developers benefit from scalable and real-time cloud services. The app serves as a foundation for further enhancements and showcases the potential of modern cross-platform development with cloud-based solutions.
 
+ ##LOGO
+
 ![playstore](https://github.com/Nagarasu0408/UPG/assets/88180695/e9289510-d32f-4f43-ad1b-2fb7b3b8022e)
+
+
+##Demo Screenshots
+
+- Animation Screen:-
+![demo (1)](https://github.com/Nagarasu0408/UPG/assets/88180695/bc84113c-516c-4b6e-b2c8-2e050f3231a2)
+
+- Home Screen:-
+![demo (2)](https://github.com/Nagarasu0408/UPG/assets/88180695/3d834f15-e2f1-4ea7-baa2-5d4737ee96c2)
+
+- Upload Screen:-
+![demo (3)](https://github.com/Nagarasu0408/UPG/assets/88180695/928b1e59-95c7-4039-8b3f-417cf21246ca)
+
+- Settings screen:-
+![demo (4)](https://github.com/Nagarasu0408/UPG/assets/88180695/c586dfa8-c199-441d-a89f-c288fc39f6b1)
+
+- Light mode demo:-
+![demo (5)](https://github.com/Nagarasu0408/UPG/assets/88180695/3c73cf69-7434-478a-83cc-2bc5d3d00557)
+
+- Login Screen:-
+![demo (6)](https://github.com/Nagarasu0408/UPG/assets/88180695/fdde3dc6-960c-4cf2-9190-85c953917656)
+
+- Register Screen:-
+![demo (7)](https://github.com/Nagarasu0408/UPG/assets/88180695/0895190c-33dc-4855-a581-bf783686505b)
+
+
+

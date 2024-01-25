@@ -5,7 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:upg/main.dart';
+import 'package:upg/settingspage.dart';
+
+import 'Theme.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -20,20 +24,23 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final ImagePicker _picker = ImagePicker();
+  bool isLiked = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(children: [
-          Text('UPG')
-        ],),
+        title: Row(
+          children: [Text('UPG')],
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage()));
+              context.read<ThemeProvider>().darkMode = false;
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => LoginPage()));
             },
           ),
         ],
@@ -42,10 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('images').snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection('images').snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
@@ -66,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       subtitle: Row(
                         children: [
                           IconButton(
-                            icon: Icon(Icons.thumb_up),
+                            icon: Icon(
+                              isLiked ? Icons.favorite : Icons.favorite_border,
+                              color: isLiked ? Colors.red : null,
+                            ),
                             onPressed: () {
                               _handleLike(image.id);
                             },
@@ -84,11 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          ElevatedButton(
+        ElevatedButton(
             onPressed: () {
               _pickImage();
             },
-            child: Text('Upload Image'),
+            child:const Text('Upload Image'),
           ),
         ],
       ),
@@ -102,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
       _uploadImage(File(pickedFile.path));
     }
   }
-
 
   void _uploadImage(File image) async {
     try {
@@ -159,11 +169,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-
-
   void _handleLike(String documentId) async {
     var user = widget.user;
-
     // Check if the user has already liked the image
     var likedImages = await _firestore
         .collection('user_likes')
@@ -193,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       // User has already liked the image, revoke the like
       await _firestore.collection('images').doc(documentId).update({
-        'likes': FieldValue.increment(-1),
+        'likes':FieldValue.increment(-1),
       });
 
       // Remove the like from the user_likes collection

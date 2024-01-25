@@ -2,11 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:upg/UserImagesPage.dart';
 
 import 'AnimationSecreen.dart';
 import 'HomeScreen.dart';
 
 
+import 'Theme.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,13 +17,24 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(AnimationScreen());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeProvider(),
+    child: AnimationScreen(preferredTheme: ThemeMode.light),
+  ),);
 }
 
+
 class MyApp extends StatelessWidget {
+  final ThemeMode preferredTheme;
+  const MyApp({Key? key, required this.preferredTheme}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: context.watch<ThemeProvider>().darkMode
+          ? ThemeMode.dark
+          : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(
         future: FirebaseAuth.instance.authStateChanges().first,
@@ -32,6 +46,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData && snapshot.data != null) {
             // User is logged in
             return HomeScreen(user: snapshot.data!);
+            return UserImagesPage();
           } else {
             // User is not logged in
             return LoginPage();

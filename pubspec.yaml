@@ -41,9 +41,18 @@ dependencies:
   firebase_storage: ^11.6.0
   image_picker: ^1.0.7
   google_sign_in: ^6.2.1
+  shared_preferences: ^2.2.2
+  provider: ^6.1.1
   animated_splash_screen: ^1.3.0
   lottie: ^3.0.0
-
+  icons_launcher: ^2.1.7
+icons_launcher:
+  image_path: "assets/playstore.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +79,10 @@ flutter:
   assets:
       - assets/icon4.png
       - assets/logo.json
+      - assets/darktheme.json
+      - assets/dark_mode_icon.png
+      - assets/default-avatar.png
+      - assets/mode-light-icon-.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

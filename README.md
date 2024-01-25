@@ -1,4 +1,4 @@
-# upg
+# UPG
 
 # Image Sharing App with Flutter and Firebase
 
